@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
         color: '#fff'
     },
     logo:{
+        marginBottom: 30,
         width: 200,
         height: 220
     }

@@ -14,6 +14,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 // Paginas
 import Login from './pages/login'
 import Home from './pages/home'
+import Eventos from './pages/eventos'
 
 
 const Stack = createStackNavigator();
@@ -38,6 +39,7 @@ const Autenticado = () => {
 
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Screen name="Eventos" component={Eventos} />
         <Drawer.Screen name="Logout" component={Logout} />
       </Drawer.Navigator>
 
