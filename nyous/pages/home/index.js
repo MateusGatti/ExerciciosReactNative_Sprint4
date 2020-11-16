@@ -1,36 +1,52 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {  Text, View, FlatList } from 'react-native';
+import ItemEvento from '../../components/itemEvento';
 
 const Home = () => {
 
-    const[token, setToken] = useState('');
+
+    const[eventos, setEventos] = useState([]);
 
     useEffect(() => {
-        getData();
+        listarEventos();
     }, [])
 
-    
-    const getData = async () => {
-        try {
-        const value = await AsyncStorage.getItem('@jwt')
-        if(value !== null) {
-            setToken(value);
-        }
-        } catch(e) {
-        // error reading value
-        }
+
+
+    const listarEventos = () => {
+
+        fetch(`http://192.168.0.11:5000/api/eventos`)
+            .then(response => response.json())
+            .then(dados => {
+            setEventos(dados.data);
+            console.log(data);
+        })
+        .catch(err => console.error(err));
     }
-    
+
+    const renderItem = ({item}) => {
+        return(
+            <ItemEvento
+                nome={item.nome}
+                imagem={item.urlImagem}
+                link={item.link}
+            />
+        )
+    }
 
 
-    return(
+    return (
         <View>
             <Text>Home</Text>
-            <Text>{token}</Text>
+            <FlatList
+                data={eventos}
+                keyExtractor={item => item.id}
+                renderItem={renderItem}
+            />
         </View>
     )
 
 }
+
 
 export default Home;
